@@ -1,0 +1,66 @@
+todo
+=========================================
+
+create link in header to notes
+create routing for notes
+attach notes controller
+
+notes
+=========================================
+header html is loaded from /public/views/header.html
+header uses HeaderController
+links displayed are in scope variable "menu"
+
+to make a new link
+	
+	add it to the HeaderController 
+		in /public/js/controllers/header.js in $scope.menu
+	
+	add a route for the new link's path
+		/public/js/config.js
+		(hmm... they use $stateProvider instead of $routeProvider)
+
+		include a templateUrl
+
+	create template
+		in /app/public/views/
+
+		note - They use data-ng-foo for their directives.  data- is ignored by Angular JS.  This is just for html validation purposes.  When in Rome...
+
+		Add a controller to the template.  Cry when you refresh because Angular is sad.
+
+	create a module to attach the controller to
+		in /public/js/app.js add another module
+	
+		Since they've already got everything hooked up to the 'mean' module, just dangle from that.
+			angular.module('mean.notes', []);
+
+	create the controller
+		in /public/js/controllers/notes.js
+
+		Attach the controller to the module created above.
+
+		You can pretty much copy the first line of the definition from articles.js, just remove the 'Articles' injection and name the controller correctly.
+
+		Add a $scope variable to the controller and in the view so you can be assured it's all working.  
+			$scope.foo = 'bar' and {{ foo }}
+
+	add the controller reference so Angular won't cry anymore
+
+		in /app/views/includeds/foot.html
+			look for Application Controllers
+
+		restart the server
+
+	:( OK, everything seems hooked up, but the controller isn't found for some reason.
+
+		I added a breakpoint in the new controller, and it is being loaded.
+
+		I kept getting
+
+		Error: [ng:areq] http://errors.angularjs.org/1.2.13/ng/areq?p0=NotesCtrl&p1=not%20a%20function%2C%20got%20undefined
+
+		It turns out, although we set up a namespace and defined everything, the new controller was never injected into the main app's "mean" module.  This was not noticed for a bit because of the [in my opinion](http://stackoverflow.com/questions/21814418/is-there-a-convention-of-formatting-injected-dependencies) bad formatting that caused the dependencies to go way off the page.
+
+		Lessons: Format the verbose injection so you can see everything!  Also, you can't just define a module and add a reference to the script.  You have to inject it!
+
