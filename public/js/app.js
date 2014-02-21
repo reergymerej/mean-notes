@@ -7,9 +7,11 @@ angular.module('mean', [
 	'ui.router',
 	'mean.system',
 	'mean.articles',
-	'mean.notes'
+	'mean.notes',
+  'mean.categories'
 ]);
 
 angular.module('mean.system', []);
 angular.module('mean.articles', []);
 angular.module('mean.notes', []);
+angular.module('mean.categories', []);
