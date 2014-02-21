@@ -1,66 +1,103 @@
 todo
 =========================================
-
-create link in header to notes
-create routing for notes
-attach notes controller
+view categories in db
 
 notes
 =========================================
-header html is loaded from /public/views/header.html
-header uses HeaderController
-links displayed are in scope variable "menu"
+How is data for Articles being pulled?
 
-to make a new link
+In ArticlesController, $scope.find is called.  This populates $scope.articles with the results from Articles.query.
+
+What is Articles and what does query() do?
+
+	Articles is injected into the controller.  Where is it defined?
+
+		/public/js/services/articles.js
+
+	Articles is a factory service.  It's hard to figure out what type of provider to use, so I'll just remember that they're using a factory for this.
+
+	It uses $resource, a higher level abstraction for $http.
+		http://docs.angularjs.org/api/ngResource/service/$resource
 	
-	add it to the HeaderController 
-		in /public/js/controllers/header.js in $scope.menu
+	The Articles factory will return the result of calling $resource().  That result will allow us to perform CRUD stuff like get, save, and query.
+
+	Here's a breakdown of $resource's arguments.
+
+	$resource(
+		// url
+		'someurl'
 	
-	add a route for the new link's path
-		/public/js/config.js
-		(hmm... they use $stateProvider instead of $routeProvider)
-
-		include a templateUrl
-
-	create template
-		in /app/public/views/
-
-		note - They use data-ng-foo for their directives.  data- is ignored by Angular JS.  This is just for html validation purposes.  When in Rome...
-
-		Add a controller to the template.  Cry when you refresh because Angular is sad.
-
-	create a module to attach the controller to
-		in /public/js/app.js add another module
+		// param defaults (optional)
+		{ param: 'defaults'},
 	
-		Since they've already got everything hooked up to the 'mean' module, just dangle from that.
-			angular.module('mean.notes', []);
+		// actions (optional)
+		{ update: { method: 'PUT' } }
+	);
 
-	create the controller
-		in /public/js/controllers/notes.js
+Let's play with the $resource methods.  
 
-		Attach the controller to the module created above.
+	First we have to create a service in /public/js/services.
 
-		You can pretty much copy the first line of the definition from articles.js, just remove the 'Articles' injection and name the controller correctly.
+	Add the reference to /app/views/includes/foot.html.  Restart the server.  Now our service is loaded, but it's not being injected anywhere.
 
-		Add a $scope variable to the controller and in the view so you can be assured it's all working.  
-			$scope.foo = 'bar' and {{ foo }}
+	Inject our service into our controller.
 
-	add the controller reference so Angular won't cry anymore
+	In the controller, use our factory to call different methods of $resource.
 
-		in /app/views/includeds/foot.html
-			look for Application Controllers
+		It looks like subsequent GETs don't do anything if the first one got a 404 as long as the request is the same.  If the url params are different, both requests will go through.  Repetitive POSTs with the same data still go through.
 
-		restart the server
+		url params that match tokens in the $resource's path are plugged into the url.
 
-	:( OK, everything seems hooked up, but the controller isn't found for some reason.
+			// service
+			$resource('foo/:bar/:baz'
+				...
+			);
 
-		I added a breakpoint in the new controller, and it is being loaded.
+			// controller
+			TheFactory.get({
+				bar: 111,
+				baz: 222
+			}, 
+				...
+			);
 
-		I kept getting
+			// GET to foo/111/222
 
-		Error: [ng:areq] http://errors.angularjs.org/1.2.13/ng/areq?p0=NotesCtrl&p1=not%20a%20function%2C%20got%20undefined
+			// controller
+			TheFactory.get({
+				baz: 222
+			}, 
+				...
+			);
 
-		It turns out, although we set up a namespace and defined everything, the new controller was never injected into the main app's "mean" module.  This was not noticed for a bit because of the [in my opinion](http://stackoverflow.com/questions/21814418/is-there-a-convention-of-formatting-injected-dependencies) bad formatting that caused the dependencies to go way off the page.
+			// GET to foo/222
 
-		Lessons: Format the verbose injection so you can see everything!  Also, you can't just define a module and add a reference to the script.  You have to inject it!
+		What is the '@_id' in the $resource?  This is used to look up values in the data being sent in the request to help build the url.
+		http://stackoverflow.com/a/17560529/1319850
 
+		example:
+
+			$resource('foo/:bar', {
+				{
+					bar: '@potato'
+				}
+			});
+
+			// This POSTs a and b to 'foo'.
+			TheFactory.save(
+				{
+					a: 1,
+					b: 2
+				}
+			);
+
+			// This POSTs a and b to 'foo/666'.
+			TheFactory.save(
+				{
+					a: 1,
+					b: 2,
+					potato: 666
+				}
+			);
+
+		The reason the MEAN example uses '@_id' is because the objects, once they're hooked up to a service, will be created by MongoDB, which gives all objects the _id field.
