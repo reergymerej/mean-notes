@@ -101,3 +101,52 @@ Let's play with the $resource methods.
 			);
 
 		The reason the MEAN example uses '@_id' is because the objects, once they're hooked up to a service, will be created by MongoDB, which gives all objects the _id field.
+
+================================================
+OK, we're requesting data.  Now to the server.
+================================================
+
+Obviously, we're getting a 404 because there's no router for 'categories' set up by Express.  Let's create one.
+
+How is the request for 'arcticles' being handled?  We'll use that as our example.
+
+Where is it?
+	The router is set up as a node module.  /app/routes/articles.js
+
+Create our own (save-as).  Will node pick it up automatically?
+
+	Node picked up the new file automatically.
+	Comment out all the authorization stuff.
+	Copy the first get and comment out the other stuff.
+	Change the path to /categories - keep the template - and verify it all works.
+	Grunt saw the change and automatically restarted the server.  Thanks, Grunt!  Now our request is returning all the articles.  :|
+
+	How can we change the view being returned?
+		The "view" seems to actually be a method in the articles controller. /app/controllers/articles.js
+	
+		In the controller's module, the "all" method is being executed when the route is matched.
+
+		This method uses Article (a mongoose model) to find all the articles, sort, populate (?), and exec.  I'm not sure what populate and exec do, but we'll figure that out when we get to MongoDB.
+
+		In the callback for exec, all the articles are passed.  If there's no error, the response is rendered using jsonp.
+
+		Change the param passed to jsonp to a JS object and refresh browser.  Vioala.  We're returning hardcoded JSON.
+
+	Let's add a stub for our stuff.
+		Create a controller in /app/controllers/
+
+	Change the controller referenced in our router to this one.  Change it in the exports after importing it like articles is imported.
+
+	Create a model for Mongoose to use.
+		model name is singular and capitalized
+		Can we just copy what Article did - pass a string?
+
+		nope - throw new mongoose.Error.MissingSchemaError(name);
+
+		Where the hell is this model defined?
+		/app/models/article.js
+
+		save-as article.js
+		change all the article refs to category
+
+		restart server - all good

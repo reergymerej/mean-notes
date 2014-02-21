@@ -22,9 +22,9 @@ angular.module('mean.categories')
 
     // query
     // does a GET to the url
-    // Categories.query(function (categories) {
-    //   console.log(categories);
-    // });
+    Categories.query(function (categories) {
+      console.log(categories);
+    });
 
     // get
     // does a GET
@@ -34,28 +34,28 @@ angular.module('mean.categories')
 
     // save
     // does a POST
-    Categories.save(
+    // Categories.save(
 
-      // post data
-      {
-        foo: 'bar',
-        baz: 'quux'
-      },
+    //   // post data
+    //   {
+    //     foo: 'bar',
+    //     baz: 'quux'
+    //   },
 
-      function () {}
-    );
+    //   function () {}
+    // );
 
 
-    Categories.save(
+    // Categories.save(
 
-      // post data
-      {
-        foo: 'bar',
-        baz: 'quux',
-        donkey: 'potato'
-      },
+    //   // post data
+    //   {
+    //     foo: 'bar',
+    //     baz: 'quux',
+    //     donkey: 'potato'
+    //   },
       
-      function () {}
-    );
+    //   function () {}
+    // );
   
 }]);
