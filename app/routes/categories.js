@@ -18,7 +18,7 @@ module.exports = function(app) {
 
     app.get('/categories', categories.all);
     app.post('/categories', categories.create);
-
+    app.del('/categories/:categoryId', categories.destroy);
 
     // app.get('/articles', articles.all);
     // app.get('/articles/:articleId', articles.show);

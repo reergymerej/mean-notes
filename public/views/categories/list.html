@@ -18,6 +18,12 @@
   <ul>
     <li
       data-ng-repeat="category in categories">
+        <button
+          class="btn btn-xs btn-default"
+          data-ng-click="deleteCategory(category)"
+          >
+          <span class="glyphicon glyphicon-remove"></span>
+        </button>
         <a
           data-ng-href="#!/categories/{{category._id}}">
           {{ category.title }}

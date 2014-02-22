@@ -46,20 +46,7 @@ var mongoose = require('mongoose'),
 // /**
 //  * Delete an article
 //  */
-// exports.destroy = function(req, res) {
-//     var article = req.article;
 
-//     article.remove(function(err) {
-//         if (err) {
-//             return res.send('users/signup', {
-//                 errors: err.errors,
-//                 article: article
-//             });
-//         } else {
-//             res.jsonp(article);
-//         }
-//     });
-// };
 
 // /**
 //  * Show an article
@@ -101,8 +88,29 @@ exports.create = function(req, res) {
 
     category.save(function(err) {
         if (err) {
+            console.log(err);
             res.end('error');
 
+        } else {
+            res.jsonp(category);
+        }
+    });
+};
+
+exports.destroy = function(req, res) {
+    var category = req.category;
+
+    console.log(req.category);
+    console.log(req.article);
+
+    console.log('How do we get the category?');
+
+    category.remove(function(err) {
+        if (err) {
+            return res.send('users/signup', {
+                errors: err.errors,
+                category: category
+            });
         } else {
             res.jsonp(category);
         }

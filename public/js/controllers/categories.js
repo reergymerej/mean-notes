@@ -12,12 +12,20 @@ angular.module('mean.categories')
         // create a $resource instance from our factory
         var category = new Categories({
             foo: 'bar',
-            name: categoryName
+            name: categoryName,
+            title: categoryName
         });
 
         category.$save(function (resp) {
-            console.log(resp);
+            $scope.categories.unshift(resp);
         });
+    };
+
+    $scope.deleteCategory = function (category) {
+        var index = $scope.categories.indexOf(category);
+
+        category.$remove();
+        $scope.categories.splice(index, 1);
     };
 
 
