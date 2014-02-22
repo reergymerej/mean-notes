@@ -148,5 +148,83 @@ Create our own (save-as).  Will node pick it up automatically?
 
 		save-as article.js
 		change all the article refs to category
+		At the end, the model is registered with mongoose.
 
 		restart server - all good
+
+	Where are we?
+		Angular
+			requests '/categories'
+
+		Express
+			router
+				catches request, executes controller's "all" method
+			controller
+				uses mongoose Category model to find records
+				returns results as JSON
+
+		Angular
+			receives JSON
+
+	Change controller to use our new model.
+		/app/controllers/articles.js
+
+	Change the hardcoded nonsense to use the result from querying our new model.  Everything looks good.  The request now successfully returns nothing.
+
+================================================
+Stuff in Some Data
+================================================
+
+OK, we have to add some data to verify it can be pulled.
+
+Let's interact with MongoDB directly.
+
+Start up another terminal.
+	Can we just start it anywhere or do we need to use some sort of instance specific to this app?  Mongo stores everything as documents, so it may be localized.
+
+	How do we start mongo?
+		in terminal: mongo
+		show dbs
+
+	What db is this app using?
+		judging by /config/env/development.js, we're using mean-dev
+
+	This db shows up in the list, so I guess that answers the question about localized data.  Come to think of it, I remember having to specify some global path for the data.
+
+	Let's verify that we are looking at the right thing.
+
+	select the db
+		use mean-dev
+
+	How show data in db?
+		show collections
+
+	show documents in the collection
+		db.articles.find()
+
+	How about adding something to our new collection?
+		It's not listed in the collections yet, but we should be able to just add to it and it will be created.
+
+	// http://docs.mongodb.org/manual/reference/mongo-shell/
+
+		db.categories.insert({
+			foo: 'bar'
+		});
+
+		// the collection was created
+		show collections;
+
+Does this show up in our app now?
+	yeah, baby
+
+Generate a few records so we can display them on the front-end.
+	
+	for (var i = 0; i < 6; i++) {
+		db.categories.insert({ title: 'some title #' + 1 });
+	}
+
+	db.cagetories.find().pretty();
+
+Data is now being sent to the front end from our db.  Stop playing around with all these toys - there will be time later - and get back to Angular.
+
+================================================

@@ -12,14 +12,14 @@ var mongoose = require('mongoose'),
 /**
  * Find article by id
  */
-exports.article = function(req, res, next, id) {
-    Article.load(id, function(err, article) {
-        if (err) return next(err);
-        if (!article) return next(new Error('Failed to load article ' + id));
-        req.article = article;
-        next();
-    });
-};
+// exports.article = function(req, res, next, id) {
+//     Article.load(id, function(err, article) {
+//         if (err) return next(err);
+//         if (!article) return next(new Error('Failed to load article ' + id));
+//         req.article = article;
+//         next();
+//     });
+// };
 
 /**
  * Create an article
@@ -89,20 +89,20 @@ exports.article = function(req, res, next, id) {
  * List of Articles
  */
 exports.all = function(req, res) {
-    console.log(Category);
 
-    Article
+    // Article
+    Category
     .find()
     .sort('-created')
     .populate('user', 'name username')
-    .exec(function(err, articles) {
+    .exec(function(err, categories) {
         if (err) {
             res.render('error', {
                 status: 500
             });
         } else {
-            res.jsonp([{ho:"he"}]);
-            // res.jsonp(articles);
+            // res.jsonp([{ho:"he"}]);
+            res.jsonp(categories);
         }
     });
 };
