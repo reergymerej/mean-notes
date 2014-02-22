@@ -17,10 +17,10 @@ var categories = require('../controllers/categories');
 module.exports = function(app) {
 
     app.get('/categories', categories.all);
+    app.post('/categories', categories.create);
 
 
     // app.get('/articles', articles.all);
-    // app.post('/articles', authorization.requiresLogin, articles.create);
     // app.get('/articles/:articleId', articles.show);
     // app.put('/articles/:articleId', authorization.requiresLogin, hasAuthorization, articles.update);
     // app.del('/articles/:articleId', authorization.requiresLogin, hasAuthorization, articles.destroy);

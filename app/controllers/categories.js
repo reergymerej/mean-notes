@@ -21,24 +21,7 @@ var mongoose = require('mongoose'),
 //     });
 // };
 
-/**
- * Create an article
- */
-// exports.create = function(req, res) {
-//     var article = new Article(req.body);
-//     article.user = req.user;
 
-//     article.save(function(err) {
-//         if (err) {
-//             return res.send('users/signup', {
-//                 errors: err.errors,
-//                 article: article
-//             });
-//         } else {
-//             res.jsonp(article);
-//         }
-//     });
-// };
 
 // /**
 //  * Update an article
@@ -103,6 +86,25 @@ exports.all = function(req, res) {
         } else {
             // res.jsonp([{ho:"he"}]);
             res.jsonp(categories);
+        }
+    });
+};
+
+/**
+ * Create an article
+ */
+exports.create = function(req, res) {
+    // create it with the json passed in the request
+    var category = new Category(req.body);
+
+    category.user = req.user;
+
+    category.save(function(err) {
+        if (err) {
+            res.end('error');
+
+        } else {
+            res.jsonp(category);
         }
     });
 };

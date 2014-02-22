@@ -1,4 +1,20 @@
 <section data-ng-controller="CategoriesCtrl">
+  <form class="form-inline">
+    <input
+      class="form-control"
+      style="width: 200px;"
+      placeholder="new category"
+      data-ng-model="newCategoryName"
+      />
+    <button
+      class="btn btn-default"
+      data-ng-disabled="!newCategoryName"
+      data-ng-click="submitCategory(newCategoryName)"
+      >
+      <span class="glyphicon glyphicon-ok"></span>
+    </button>
+  </form>
+
   <ul>
     <li
       data-ng-repeat="category in categories">

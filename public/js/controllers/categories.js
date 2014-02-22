@@ -7,6 +7,20 @@ angular.module('mean.categories')
 
     $scope.categories;
 
+    $scope.submitCategory = function (categoryName) {
+
+        // create a $resource instance from our factory
+        var category = new Categories({
+            foo: 'bar',
+            name: categoryName
+        });
+
+        category.$save(function (resp) {
+            console.log(resp);
+        });
+    };
+
+
     // return $resource(
     //   'categories/:categoryId/:foo',
 
