@@ -228,3 +228,14 @@ Generate a few records so we can display them on the front-end.
 Data is now being sent to the front end from our db.  Stop playing around with all these toys - there will be time later - and get back to Angular.
 
 ================================================
+How is Angular handling the response for the articles?
+================================================
+
+The callback for the resource factory's "query" method just assigns the callback's arg to the scope.  When I log it to the console, there are other things in there.  
+
+	How is the view using this scope variable?  
+		It's just a regular ngRepeat.  I guess ngRepeat doesn't iterate over the $promise and $resolved objects.
+
+	** cool trick #sublime:  double-click in the black space near the tabs to create a new file
+
+	Why do they use the hash-bang before the link to the article?

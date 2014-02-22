@@ -4,7 +4,8 @@ angular.module('mean.categories')
 .controller('CategoriesCtrl', [
   '$scope', '$stateParams', '$location', 'Global', 'Categories',
   function ($scope, $stateParams, $location, Global, Categories) {
-    $scope.foo = 'yo, foo!';
+
+    $scope.categories;
 
     // return $resource(
     //   'categories/:categoryId/:foo',
@@ -23,7 +24,7 @@ angular.module('mean.categories')
     // query
     // does a GET to the url
     Categories.query(function (categories) {
-      console.log(categories);
+        $scope.categories = categories;
     });
 
     // get

@@ -1,1 +1,14 @@
-<section data-ng-controller="CategoriesCtrl">from categories: {{ foo }}</section>
+<section data-ng-controller="CategoriesCtrl">
+  <ul>
+    <li
+      data-ng-repeat="category in categories">
+        <a
+          data-ng-href="#!/categories/{{category._id}}">
+          {{ category.title }}
+        </a>
+      <div class="text-muted">
+        <small>{{ category | json }}</small>
+      </div>
+    </li>
+  </ul>
+</section>
