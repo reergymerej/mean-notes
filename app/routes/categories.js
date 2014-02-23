@@ -26,6 +26,15 @@ module.exports = function(app) {
     // app.del('/articles/:articleId', authorization.requiresLogin, hasAuthorization, articles.destroy);
 
     // Finish with setting up the articleId param
-    // app.param('articleId', articles.article);
+    // This is some type of middleware that adds the category 
+    // to the request.
 
+    // http://expressjs.com/api.html#app.param
+    // Map logic to route parameters. For example when :user 
+    // is present in a route path you may map user loading 
+    // logic to automatically provide req.user to the route, 
+    // or perform validations on the parameter input.
+
+
+    app.param('categoryId', categories.category);
 };

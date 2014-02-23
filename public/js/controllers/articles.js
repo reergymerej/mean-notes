@@ -40,8 +40,7 @@ function (
                     $scope.articles.splice(i, 1);
                 }
             }
-        }
-        else {
+        } else {
             $scope.article.$remove();
             $location.path('articles');
         }

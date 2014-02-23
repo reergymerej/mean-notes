@@ -4,22 +4,27 @@
  * Module dependencies.
  */
 var mongoose = require('mongoose'),
-    Article = mongoose.model('Article'),
     Category = mongoose.model('Category'),
     _ = require('lodash');
 
 
-/**
- * Find article by id
- */
-// exports.article = function(req, res, next, id) {
-//     Article.load(id, function(err, article) {
-//         if (err) return next(err);
-//         if (!article) return next(new Error('Failed to load article ' + id));
-//         req.article = article;
-//         next();
-//     });
-// };
+// This is some type of middleware that adds the category
+// to the request.
+exports.category = function (req, res, next, id) {
+    Category.load(id, function (err, category) {
+
+        if (err) {
+            return next(err);
+        }
+
+        if (!category) {
+            return next(new Error('Failed to load category ' + id));
+        }
+
+        req.category = category;
+        next();
+    });
+};
 
 
 
