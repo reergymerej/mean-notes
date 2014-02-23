@@ -8,7 +8,7 @@ var categories = require('../controllers/categories');
 
 // Article authorization helpers
 // var hasAuthorization = function(req, res, next) {
-// 	if (req.article.user.id !== req.user.id) {
+//  if (req.article.user.id !== req.user.id) {
 //         return res.send(401, 'User is not authorized');
 //     }
 //     next();
@@ -34,7 +34,5 @@ module.exports = function(app) {
     // is present in a route path you may map user loading 
     // logic to automatically provide req.user to the route, 
     // or perform validations on the parameter input.
-
-
     app.param('categoryId', categories.category);
 };

@@ -1,20 +1,7 @@
 'use strict';
 
 angular.module('mean.articles')
-.controller('ArticlesController', [
-    '$scope',
-    '$stateParams',
-    '$location',
-    'Global',
-    'Articles',
-
-function (
-    $scope,
-    $stateParams,
-    $location,
-    Global,
-    Articles
-    ) {
+.controller('ArticlesController', ['$scope', '$stateParams', '$location', 'Global', 'Articles', function ($scope, $stateParams, $location, Global, Articles) {
 
     $scope.global = Global;
 

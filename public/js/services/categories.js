@@ -1,20 +1,18 @@
 'use strict';
 
-angular.module('mean.notes')
-.factory('Categories', ['$resource', function ($resource) {
+angular.module('mean.notes').factory('Categories', ['$resource', function ($resource) {
 
-  return $resource(
-    'categories/:categoryId/:foo',
+    return $resource(
+        'categories/:categoryId/:foo',
+        {
+            categoryId: '@_id',
+            foo: '@donkey'
+        },
 
-    {
-      categoryId: '@_id',
-      foo: '@donkey'
-    },
-
-    {
-      update: {
-        method: 'PUT'
-      }
-    }
-  );
+        {
+            update: {
+                method: 'PUT'
+            }
+        }
+    );
 }]);

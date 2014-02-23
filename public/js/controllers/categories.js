@@ -1,11 +1,9 @@
 'use strict';
 
 angular.module('mean.categories')
-.controller('CategoriesCtrl', [
-  '$scope', '$stateParams', '$location', 'Global', 'Categories',
-  function ($scope, $stateParams, $location, Global, Categories) {
+.controller('CategoriesCtrl', ['$scope', '$stateParams', '$location', 'Global', 'Categories', function ($scope, $stateParams, $location, Global, Categories) {
 
-    $scope.categories;
+    $scope.categories = [];
 
     $scope.submitCategory = function (categoryName) {
 
@@ -33,13 +31,13 @@ angular.module('mean.categories')
     //   'categories/:categoryId/:foo',
 
     //   {
-    //     categoryId: '@_id'
+    //       categoryId: '@_id'
     //   },
 
     //   {
-    //     update: {
-    //       method: 'PUT'
-    //     }
+    //       update: {
+    //           method: 'PUT'
+    //       }
     //   }
     // );
 
@@ -61,8 +59,8 @@ angular.module('mean.categories')
 
     //   // post data
     //   {
-    //     foo: 'bar',
-    //     baz: 'quux'
+    //       foo: 'bar',
+    //       baz: 'quux'
     //   },
 
     //   function () {}
@@ -73,12 +71,12 @@ angular.module('mean.categories')
 
     //   // post data
     //   {
-    //     foo: 'bar',
-    //     baz: 'quux',
-    //     donkey: 'potato'
+    //       foo: 'bar',
+    //       baz: 'quux',
+    //       donkey: 'potato'
     //   },
-      
+        
     //   function () {}
     // );
-  
+
 }]);

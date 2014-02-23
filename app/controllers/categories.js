@@ -4,8 +4,7 @@
  * Module dependencies.
  */
 var mongoose = require('mongoose'),
-    Category = mongoose.model('Category'),
-    _ = require('lodash');
+    Category = mongoose.model('Category');
 
 
 // This is some type of middleware that adds the category

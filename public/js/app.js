@@ -8,7 +8,7 @@ angular.module('mean', [
 	'mean.system',
 	'mean.articles',
 	'mean.notes',
-  'mean.categories'
+    'mean.categories'
 ]);
 
 angular.module('mean.system', []);
