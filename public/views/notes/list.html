@@ -1,5 +1,7 @@
 <section data-ng-controller="NotesCtrl">
     <ul>
-        <li data-ng-repeat="note in notes">{{ note }}</li>
+        <li data-ng-repeat="note in notes">
+            <a data-ng-href="#!/notes/{{ note._id }}">{{ note.name }}</a>
+        </li>
     </ul>
 </section>

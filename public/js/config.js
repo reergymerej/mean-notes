@@ -38,6 +38,17 @@ angular.module('mean').config(['$stateProvider', '$urlRouterProvider', function 
         templateUrl: 'views/notes/create.html'
     })
 
+    // view a note by id
+    .state('note by id', {
+
+        // The token used here is what the value will be
+        // available as in $stateProvider.
+        url: '/notes/:noteId',
+
+        // We need a template to display.
+        templateUrl: 'views/notes/view.html'
+    })
+
     .state('categories', {
         url: '/categories',
         templateUrl: 'views/categories/list.html'

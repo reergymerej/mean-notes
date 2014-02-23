@@ -7,23 +7,6 @@ var mongoose = require('mongoose'),
     Note = mongoose.model('Note');
 
 
-// exports.notes = function (req, res, next, id) {
-//     Category.load(id, function (err, category) {
-
-//         if (err) {
-//             return next(err);
-//         }
-
-//         if (!category) {
-//             return next(new Error('Failed to load category ' + id));
-//         }
-
-//         req.category = category;
-//         next();
-//     });
-// };
-
-
 exports.all = function(req, res) {
 
     // We want to load the items from the db,
@@ -50,11 +33,11 @@ exports.create = function (req, res) {
 
     // The POST body contains the info we want to
     // create a new Note with.
-    console.log(req.body);
+    // console.log(req.body);
 
     // Create an instance of our mongoose Note model
     // with the data in the POST request.
-    var note = Note(req.body);
+    var note = new Note(req.body);
 
     // Save the new note to the db.
     note.save(function (err) {
@@ -71,6 +54,38 @@ exports.create = function (req, res) {
         }
     });
 };
+
+exports.show = function (req, res) {
+
+    // Send the note as JSON.
+    // How did the request get the note?
+    // It was added by the middleware.
+    // Why was the middleware run?
+    // Because our router told it to when the url
+    // had the noteId param.
+    res.jsonp(req.note);
+};
+
+// This is called when the request has a noteId in it.
+// It adds a "note" to the request.
+exports.note = function (req, res, next, id) {
+    Note.load(id, function (err, note) {
+        if (err) {
+            return next(err);
+        }
+
+        if (!note) {
+            return next(new Error('failed to load note ' + id));
+        }
+
+        // Add the note to the request so other methods
+        // have access to it.
+        req.note = note;
+
+        next();
+    });
+};
+
 
 // exports.create = function(req, res) {
 //     // create it with the json passed in the request

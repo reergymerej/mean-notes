@@ -255,3 +255,6 @@ What's the route of the DELETE for articles?
 What are the states all about?  /public/js/config.js
 	$stateProvider
 
+How does $stateParams know what to assign the id in the url to?
+	Where does $stateParams come from?
+	

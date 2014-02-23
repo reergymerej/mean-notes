@@ -9,7 +9,11 @@ angular.module('mean.notes')
     return $resource(
         'notes/:noteId',
 
-        { noteId: '@_id' },
+        // These params are used in requests.
+        {
+            noteId: '@_id',
+            someOtherParam: 'donkey'
+        },
 
         {
             update: { method: 'PUT' }
