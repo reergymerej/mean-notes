@@ -32,6 +32,12 @@ angular.module('mean').config(['$stateProvider', '$urlRouterProvider', function 
         templateUrl: 'views/notes/list.html'
     })
 
+    // What are these states about?
+    .state('create note', {
+        url: '/notes/create',
+        templateUrl: 'views/notes/create.html'
+    })
+
     .state('categories', {
         url: '/categories',
         templateUrl: 'views/categories/list.html'

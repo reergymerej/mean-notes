@@ -24,11 +24,6 @@ var mongoose = require('mongoose'),
 // };
 
 
-
-
-/**
- * List of Articles
- */
 exports.all = function(req, res) {
 
     // We want to load the items from the db,
@@ -50,9 +45,33 @@ exports.all = function(req, res) {
     });
 };
 
-// /**
-//  * Create an article
-//  */
+exports.create = function (req, res) {
+    // This is called by the router.
+
+    // The POST body contains the info we want to
+    // create a new Note with.
+    console.log(req.body);
+
+    // Create an instance of our mongoose Note model
+    // with the data in the POST request.
+    var note = Note(req.body);
+
+    // Save the new note to the db.
+    note.save(function (err) {
+
+        // If we had an error, let the requestor know.
+        if (err) {
+            console.log(err);
+            res.end('error');
+        } else {
+
+            // Return the new note as JSON.
+            res.jsonp(note);
+
+        }
+    });
+};
+
 // exports.create = function(req, res) {
 //     // create it with the json passed in the request
 //     var category = new Category(req.body);

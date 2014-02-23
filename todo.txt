@@ -239,3 +239,19 @@ The callback for the resource factory's "query" method just assigns the callback
 	** cool trick #sublime:  double-click in the black space near the tabs to create a new file
 
 	Why do they use the hash-bang before the link to the article?
+
+================================================
+Show individual category.
+================================================
+
+
+
+
+
+================================================
+What's the route of the DELETE for articles?
+
+
+What are the states all about?  /public/js/config.js
+	$stateProvider
+

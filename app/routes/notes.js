@@ -9,6 +9,10 @@ module.exports = function(app) {
     // notes controller.  We need a controller.
     app.get('/notes', notes.all);
 
+
+    // create
+    app.post('/notes', notes.create);
+
     // http://expressjs.com/api.html#app.param
     // Map logic to route parameters. For example when :user 
     // is present in a route path you may map user loading 

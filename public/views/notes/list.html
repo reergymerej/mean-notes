@@ -1,5 +1,5 @@
-<section
-	data-ng-controller="NotesCtrl">
-
-	{{ foo }}
+<section data-ng-controller="NotesCtrl">
+    <ul>
+        <li data-ng-repeat="note in notes">{{ note }}</li>
+    </ul>
 </section>
