@@ -1,4 +1,6 @@
 <section data-ng-controller="CategoriesCtrl">
+
+
   <form class="form-inline">
     <input
       class="form-control"
@@ -18,16 +20,7 @@
   <ul>
     <li
       data-ng-repeat="category in categories">
-        <button
-          class="btn btn-xs btn-default"
-          data-ng-click="deleteCategory(category)"
-          >
-          <span class="glyphicon glyphicon-remove"></span>
-        </button>
-        <a
-          data-ng-href="#!/categories/{{category._id}}">
-          {{ category.title }}
-        </a>
+        <category></category>
     </li>
   </ul>
 </section>

@@ -1,0 +1,18 @@
+<button
+    class="btn btn-xs btn-default"
+    data-ng-click="deleteCategory(category)">
+    <span class="glyphicon glyphicon-remove"></span>
+</button>
+<a data-ng-href="#!/categories/{{category._id}}">{{ category.title }}</a>
+<!-- <input type="checkbox" data-ng-model="edit" />
+<form 
+    class="form-inline"
+    data-ng-hide="!edit">
+    <input
+        class="form-control"
+        style="width: 200px;"
+        data-ng-model="category.title" />
+    <button class="btn btn-default">
+        <span class="glyphicon glyphicon-ok"></span>
+    </button>
+</form> -->

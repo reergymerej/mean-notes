@@ -3,6 +3,18 @@
 angular.module('mean.categories')
 .controller('CategoriesCtrl', ['$scope', '$stateParams', '$location', 'Global', 'Categories', function ($scope, $stateParams, $location, Global, Categories) {
 
+    var sortBy = function (collection, field) {
+        collection.sort(function (a, b) {
+            if (a[field] < b[field]) {
+                return -1;
+            } else if (a[field] > b[field]) {
+                return 1;
+            } else {
+                return 0;
+            }
+        });
+    };
+
     $scope.newCategoryName = '';
     $scope.categories = [];
 
@@ -15,16 +27,7 @@ angular.module('mean.categories')
 
         category.$save(function (resp) {
             $scope.categories.unshift(resp);
-            $scope.categories.sort(function (a, b) {
-                if (a.title < b.title) {
-                    return -1;
-                } else if (a.title > b.title) {
-                    return 1;
-                } else {
-                    return 0;
-                }
-            });
-
+            sortBy($scope.categories, 'title');
             $scope.newCategoryName = '';
         });
     };
@@ -55,6 +58,7 @@ angular.module('mean.categories')
     // does a GET to the url
     Categories.query(function (categories) {
         $scope.categories = categories;
+        sortBy($scope.categories, 'title');
     });
 
     // get
