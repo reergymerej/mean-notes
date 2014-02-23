@@ -104,11 +104,6 @@ exports.create = function(req, res) {
 exports.destroy = function(req, res) {
     var category = req.category;
 
-    console.log(req.category);
-    console.log(req.article);
-
-    console.log('How do we get the category?');
-
     category.remove(function(err) {
         if (err) {
             return res.send('users/signup', {

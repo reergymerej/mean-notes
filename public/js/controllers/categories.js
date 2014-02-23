@@ -3,19 +3,29 @@
 angular.module('mean.categories')
 .controller('CategoriesCtrl', ['$scope', '$stateParams', '$location', 'Global', 'Categories', function ($scope, $stateParams, $location, Global, Categories) {
 
+    $scope.newCategoryName = '';
     $scope.categories = [];
 
     $scope.submitCategory = function (categoryName) {
 
         // create a $resource instance from our factory
         var category = new Categories({
-            foo: 'bar',
-            name: categoryName,
             title: categoryName
         });
 
         category.$save(function (resp) {
             $scope.categories.unshift(resp);
+            $scope.categories.sort(function (a, b) {
+                if (a.title < b.title) {
+                    return -1;
+                } else if (a.title > b.title) {
+                    return 1;
+                } else {
+                    return 0;
+                }
+            });
+
+            $scope.newCategoryName = '';
         });
     };
 
